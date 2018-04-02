@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import TwoLines from './components/TwoLines'
+import MixChart from './components/MixChart'
 import ThreeLines from './components/ThreeLines'
 import DoughnutChart from './components/DoughnutChart'
 import PieChart from './components/PieChart'
@@ -38,7 +39,7 @@ class ListEntries extends Component {
     }
 
     render() {
-        const {entries, ids, systolicBPs} = this.props
+        const {entries} = this.props
         const {selectedValue, labels, data} = this.state
 
         let showingLabels=[]
@@ -47,6 +48,9 @@ class ListEntries extends Component {
         let overwtData0=[]
         let overwtData1=[]
         let overwtData2=[]
+        let ids =[]
+        let smokingData =[]
+        let weightData = []
 
 
         //6 months data
@@ -62,6 +66,9 @@ class ListEntries extends Component {
 
             if(itemDate >= date){
                 showingLabels.push(item.date)
+                ids.push(item.id)
+                smokingData.push(item.smoke)
+                weightData.push(item.overwt)
                 if(item.smoke === 0){
                     nonSmokerData.push(item.systolicBP)
                     smokerData.push(null)
@@ -165,6 +172,7 @@ class ListEntries extends Component {
                                     </div>
                                 </div>
                             </section>
+
                         </div>
                     )
                 }
