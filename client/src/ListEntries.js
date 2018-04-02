@@ -6,6 +6,7 @@ import sortBy from 'sort-by'
 import TwoLines from './components/TwoLines'
 import ThreeLines from './components/ThreeLines'
 import DoughnutChart from './components/DoughnutChart'
+import PieChart from './components/PieChart'
 import {RadioGroup, RadioButton} from 'react-radio-buttons';
 
 class ListEntries extends Component {
@@ -94,6 +95,11 @@ class ListEntries extends Component {
             overwtData2.filter(item=>item!=null).length
         ]
 
+        let smokerCount=[
+            nonSmokerData.filter(item=>item!=null).length,
+            smokerData.filter(item=>item!=null).length
+        ]
+
         return (
 
             <div className="wrapper">
@@ -123,7 +129,7 @@ class ListEntries extends Component {
                                 </div>
                                 <div className="middle">
                                     <div>
-                                        <DoughnutChart overwtDataCount={overwtDataCount} />
+                                        <PieChart smokerCount={smokerCount} />
                                     </div>
                                 </div>
                                 <div className="right">
