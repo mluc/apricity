@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Bar, Line, Pie} from 'react-chartjs-2'
 
-class Chart extends Component{
+class TwoLines extends Component{
 
 
     static defaultProps = {
@@ -13,23 +13,36 @@ class Chart extends Component{
 
         return(
             <div className="chart">
+
                 <Line
                     data={{
                         labels: this.props.labels,
                         datasets: [
                             {
-                                label: 'Population',
-                                data: this.props.data,
+                                spanGaps: true,
+                                fill: false,
+                                label: this.props.datasetLabel,
+                                data: this.props.nonSmokerData,
                                 backgroundColor: [
                                     'rgba(255,99,132,0.6)'
                                 ]
+                            },
+                            {
+                                spanGaps: true,
+                                fill: false,
+                                label: this.props.datasetLabel2,
+                                data: this.props.smokerData,
+                                backgroundColor: [
+                                    'rgba(25,99,132,0.6)'
+                                ]
+
                             }
                         ]
                     }}
                     options={{
                        title:{
-                           display:this.props.displayTitle,
-                           text:'',
+                           display: true,
+                           text:this.props.displayTitle,
                            fontSize:25
                        },
                         legend:{
@@ -46,4 +59,4 @@ class Chart extends Component{
     }
 }
 
-export default Chart
+export default TwoLines

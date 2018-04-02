@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-import Chart from './components/Chart'
+import TwoLines from './components/TwoLines'
+import ThreeLines from './components/ThreeLines'
 import {RadioGroup, RadioButton} from 'react-radio-buttons';
 
 class ListEntries extends Component {
@@ -39,37 +40,51 @@ class ListEntries extends Component {
         const {selectedValue, labels, data} = this.state
 
         let showingLabels=[]
-        let showingData=[]
+        let nonSmokerData=[]
+        let smokerData=[]
+        let overwtData0=[]
+        let overwtData1=[]
+        let overwtData2=[]
 
-        if(selectedValue == 'weeks6'){
+        //6 months data
+        let months6 = new Date("6/1/2012")
+        //6 weeks data
+        let weeks6 = new Date("11/20/2012")
+        //6 days data
+        let days6 = new Date("12/26/2012")
 
-            //6 weeks data
-            let d = new Date("11/20/2012")
-            entries.map(item=>{
-                const itemDate = new Date(item.date)
-                if(itemDate >= d){
-                    showingLabels.push(item.date)
-                    showingData.push(item.systolicBP)
+        entries.map(item=>{
+            const itemDate = new Date(item.date)
+            let date = selectedValue == 'days6'? days6 : (selectedValue == 'weeks6'? weeks6 : months6)
+
+            if(itemDate >= date){
+                showingLabels.push(item.date)
+                if(item.smoke === 0){
+                    nonSmokerData.push(item.systolicBP)
+                    smokerData.push(null)
                 }
-            })
-        }
-        else if(selectedValue == 'days6') {
-            //6 days data
-            let d = new Date("12/26/2012")
-            entries.map(item=>{
-                const itemDate = new Date(item.date)
-                if(itemDate >= d){
-                    showingLabels.push(item.date)
-                    showingData.push(item.systolicBP)
+                else{
+                    nonSmokerData.push(null)
+                    smokerData.push(item.systolicBP)
                 }
-            })
-        }
-        else{
 
-            showingLabels = entries.map(item=>item.date);
-            showingData = entries.map(item=>item.systolicBP);
-        }
-
+                if(item.overwt ===0){
+                    overwtData0.push(item.systolicBP)
+                    overwtData1.push(null)
+                    overwtData2.push(null)
+                }
+                else if(item.overwt ===1){
+                    overwtData0.push(null)
+                    overwtData1.push(item.systolicBP)
+                    overwtData2.push(null)
+                }
+                else{
+                    overwtData0.push(null)
+                    overwtData1.push(null)
+                    overwtData2.push(item.systolicBP)
+                }
+            }
+        })
 
         return (
 
@@ -90,7 +105,7 @@ class ListEntries extends Component {
                 </section>
 
                 {
-                    showingLabels.length > 0 && showingData.length > 0 &&(
+                    showingLabels.length > 0 &&(
                         <div>
                             <section className="container">
                                 <div className="left">
@@ -100,27 +115,39 @@ class ListEntries extends Component {
                                 </div>
                                 <div className="middle">
                                     <div>
-                                        <Chart labels={showingLabels} data={showingData} legendPosition="bottom"/>
+
                                     </div>
                                 </div>
                                 <div className="right">
                                     <div>
-                                        <Chart labels={showingLabels} data={showingData} legendPosition="bottom"/>
+
                                     </div>
                                 </div>
                             </section>
 
                             <section className="container">
                                 <div className="left-half">
-                                    <h2>Chart 1</h2>
                                     <div>
-                                        <Chart labels={showingLabels} data={showingData} legendPosition="bottom"/>
+                                        <TwoLines labels={showingLabels}
+                                                  nonSmokerData={nonSmokerData}
+                                                  smokerData={smokerData}
+                                                  datasetLabel='systolicBP for non-smokers'
+                                                  datasetLabel2='systolicBP for smokers'
+                                                  displayTitle="SystolicBP for smokers and non-smokers"
+                                                  legendPosition="bottom"/>
                                     </div>
                                 </div>
                                 <div className="right-half">
-                                    <h2>Chart 2</h2>
                                     <div>
-                                        <Chart labels={showingLabels} data={showingData} legendPosition="bottom"/>
+                                        <ThreeLines labels={showingLabels}
+                                               overwtData0={overwtData0}
+                                               overwtData1={overwtData1}
+                                               overwtData2={overwtData2}
+                                               datasetLabel0='systolicBP for normal'
+                                               datasetLabel1='systolicBP for overweight'
+                                               datasetLabel2='systolicBP for obese'
+                                               displayTitle="SystolicBP for normal, overweight, and obese"
+                                               legendPosition="bottom"/>
                                     </div>
                                 </div>
                             </section>
