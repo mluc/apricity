@@ -18,6 +18,7 @@ class App extends Component {
                 entries:entries,
                 ids:entries.map(item => item.id),
                 systolicBPs: entries.map(item => item.systolicBP),
+                dates: entries.map(item => item.date),
                 chartData: {
                     labels: entries.map(item => item.id),
                     datasets: [
@@ -42,7 +43,11 @@ class App extends Component {
             <div>
               <Route exact path='/' render={() => (
                   <ListEntries
-                      entries={this.state.entries} ids={this.state.ids} systolicBPs={this.state.systolicBPs} chartData={this.state.chartData}
+                      entries={this.state.entries}
+                      ids={this.state.ids}
+                      dates={this.state.dates}
+                      systolicBPs={this.state.systolicBPs}
+                      chartData={this.state.chartData}
                   />
               )}/>
             </div>

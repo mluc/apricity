@@ -17,7 +17,7 @@ const get = (token) => {
             let token = line.split(',');
             let item = {}
             item['id'] = parseInt(token[0])
-            item['date'] = new Date(token[1])
+            item['date'] = (new Date(token[1])).toLocaleDateString()
             item['systolicBP'] = parseInt(token[2])
             item['smoke'] = parseInt(token[3])
             item['overwt'] = parseInt(token[4])
