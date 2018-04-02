@@ -27,7 +27,9 @@
 1. Server:
     * *cd server* folder
     * *npm install* to install all required packages
-    * *node server* to start the server. It will load data from *server\dataset\Blood1-addtime.csv* file
+    * *node server* to start the server. 
+        * Data from *server\dataset\Blood1-addtime.csv* file will be loaded
+        * API: http://localhost:5001/entries
 2. Client:
     * *cd client* folder
     * *npm install* to install all required packages
