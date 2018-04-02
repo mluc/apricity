@@ -5,6 +5,7 @@ import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import TwoLines from './components/TwoLines'
 import ThreeLines from './components/ThreeLines'
+import DoughnutChart from './components/DoughnutChart'
 import {RadioGroup, RadioButton} from 'react-radio-buttons';
 
 class ListEntries extends Component {
@@ -46,6 +47,7 @@ class ListEntries extends Component {
         let overwtData1=[]
         let overwtData2=[]
 
+
         //6 months data
         let months6 = new Date("6/1/2012")
         //6 weeks data
@@ -86,6 +88,12 @@ class ListEntries extends Component {
             }
         })
 
+        let overwtDataCount=[
+            overwtData0.filter(item=>item!=null).length,
+            overwtData1.filter(item=>item!=null).length,
+            overwtData2.filter(item=>item!=null).length
+        ]
+
         return (
 
             <div className="wrapper">
@@ -115,12 +123,12 @@ class ListEntries extends Component {
                                 </div>
                                 <div className="middle">
                                     <div>
-
+                                        <DoughnutChart overwtDataCount={overwtDataCount} />
                                     </div>
                                 </div>
                                 <div className="right">
                                     <div>
-
+                                        <DoughnutChart overwtDataCount={overwtDataCount} />
                                     </div>
                                 </div>
                             </section>
