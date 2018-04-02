@@ -65,3 +65,28 @@ h1 {
 .list-style {
   list-style-type: circle;
 }
+
+.list-style-sidenav {
+  list-style-type: none;
+  font-size: 25px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 150px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #37b3ff;
+  overflow-x: hidden;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  display: block;
+}
+
+.main {
+  margin-left: 160px;
+  padding: 0px 10px;
+}
