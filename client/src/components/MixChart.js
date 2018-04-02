@@ -17,9 +17,9 @@ class MixChart extends Component{
             labels: this.props.labels,
             datasets: [{
                 spanGaps: true,
-                label: this.props.datasetLabel1,
+                label: this.props.datasetLabel,
                 type:'line',
-                data: this.props.smokingData,
+                data: this.props.nonSmokerData,
                 fill: false,
                 borderColor: '#EC932F',
                 pointBorderColor: '#EC932F',
@@ -31,7 +31,7 @@ class MixChart extends Component{
                 spanGaps: true,
                 type: 'bar',
                 label: this.props.datasetLabel2,
-                data: this.props.weightData,
+                data: this.props.smokerData,
                 fill: false,
                 backgroundColor: '#71B37C',
                 borderColor: '#71B37C',
@@ -42,10 +42,17 @@ class MixChart extends Component{
         };
 
         const options = {
-            responsive: true,
-            tooltips: {
-                mode: 'label'
+            title:{
+                display:true,
+                text:this.props.displayTitle,
+                fontSize:25
             },
+            legend:{
+                display:this.props.displayLegend,
+                position:this.props.legendPosition
+            },
+            responsive: true,
+
             elements: {
                 line: {
                     fill: false

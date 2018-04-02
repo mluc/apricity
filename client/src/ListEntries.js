@@ -149,13 +149,15 @@ class ListEntries extends Component {
                             <section className="container">
                                 <div className="left-half">
                                     <div>
-                                        <TwoLines labels={showingLabels}
-                                                  nonSmokerData={nonSmokerData}
-                                                  smokerData={smokerData}
-                                                  datasetLabel='systolicBP for non-smokers'
-                                                  datasetLabel2='systolicBP for smokers'
-                                                  displayTitle="SystolicBP for smokers and non-smokers"
-                                                  legendPosition="bottom"/>
+
+                                        <MixChart     labels={showingLabels}
+                                                      nonSmokerData={nonSmokerData}
+                                                      smokerData={smokerData}
+                                                      datasetLabel='systolicBP for non-smokers'
+                                                      datasetLabel2='systolicBP for smokers'
+                                                      displayTitle="SystolicBP for smokers and non-smokers"
+
+                                                      legendPosition="bottom"/>
                                     </div>
                                 </div>
                                 <div className="right-half">
