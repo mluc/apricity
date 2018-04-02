@@ -9,6 +9,7 @@ import ThreeLines from './components/ThreeLines'
 import DoughnutChart from './components/DoughnutChart'
 import PieChart from './components/PieChart'
 import {RadioGroup, RadioButton} from 'react-radio-buttons';
+import math from 'mathjs'
 
 class ListEntries extends Component {
 
@@ -26,7 +27,6 @@ class ListEntries extends Component {
         ids: PropTypes.array.isRequired,
         systolicBPs: PropTypes.array.isRequired,
     }
-
 
     handleSelection = (value) => {
 
@@ -48,10 +48,7 @@ class ListEntries extends Component {
         let overwtData0=[]
         let overwtData1=[]
         let overwtData2=[]
-        let ids =[]
-        let smokingData =[]
-        let weightData = []
-
+        let allSystolicBPs=[]
 
         //6 months data
         let months6 = new Date("6/1/2012")
@@ -66,9 +63,7 @@ class ListEntries extends Component {
 
             if(itemDate >= date){
                 showingLabels.push(item.date)
-                ids.push(item.id)
-                smokingData.push(item.smoke)
-                weightData.push(item.overwt)
+                allSystolicBPs.push(item.systolicBP)
                 if(item.smoke === 0){
                     nonSmokerData.push(item.systolicBP)
                     smokerData.push(null)
@@ -131,7 +126,17 @@ class ListEntries extends Component {
                             <section className="container">
                                 <div className="left">
                                     <div>
-                                        Summary
+                                        <p>Summary:</p>
+                                        <ul className="list-style">
+                                            <li>Number of non-smokers:{smokerCount[0]}</li>
+                                            <li>Number of smokers: {smokerCount[1]}</li>
+                                            <li>Number of normal weight: {overwtDataCount[0]}</li>
+                                            <li>Number of overweight: {overwtDataCount[1]}</li>
+                                            <li>Number of obese: {overwtDataCount[2]}</li>
+                                            <li>Mean of SystolicBP: {math.mean(allSystolicBPs)}</li>
+                                            <li>Standard deviation of SystolicBP: {math.std(allSystolicBPs)}</li>
+                                        </ul>
+
                                     </div>
                                 </div>
                                 <div className="middle">

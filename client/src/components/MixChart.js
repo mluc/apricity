@@ -1,24 +1,22 @@
-import React, {Component} from 'react'
-import {Bar} from 'react-chartjs-2';
+import React, {Component} from "react";
+import {Bar} from "react-chartjs-2";
 
-class MixChart extends Component{
-
+class MixChart extends Component {
 
     static defaultProps = {
-        displayTitle:true,
-        displayLegend:true,
-        legendPosition:'right'
+        displayTitle: true,
+        displayLegend: true,
+        legendPosition: 'right'
     }
 
-
-    render(){
+    render() {
 
         const data = {
             labels: this.props.labels,
             datasets: [{
                 spanGaps: true,
                 label: this.props.datasetLabel,
-                type:'line',
+                type: 'line',
                 data: this.props.nonSmokerData,
                 fill: false,
                 borderColor: '#EC932F',
@@ -27,7 +25,7 @@ class MixChart extends Component{
                 pointHoverBackgroundColor: '#EC932F',
                 pointHoverBorderColor: '#EC932F',
                 yAxisID: 'y-axis-2'
-            },{
+            }, {
                 spanGaps: true,
                 type: 'bar',
                 label: this.props.datasetLabel2,
@@ -42,14 +40,14 @@ class MixChart extends Component{
         };
 
         const options = {
-            title:{
-                display:true,
-                text:this.props.displayTitle,
-                fontSize:25
+            title: {
+                display: true,
+                text: this.props.displayTitle,
+                fontSize: 15
             },
-            legend:{
-                display:this.props.displayLegend,
-                position:this.props.legendPosition
+            legend: {
+                display: this.props.displayLegend,
+                position: this.props.legendPosition
             },
             responsive: true,
 
@@ -101,7 +99,7 @@ class MixChart extends Component{
         }];
 
 
-        return(
+        return (
             <div className="chart">
 
                 <Bar

@@ -2,8 +2,6 @@
 html, body {
 }
 
-
-
 div {
   display: flex;
   flex-direction: column;
@@ -31,10 +29,6 @@ h1 {
 
 }
 
-.blueBackground2 {
-  background: lightblue;
-}
-
 .left-half {
 
   flex: 1;
@@ -51,6 +45,7 @@ h1 {
 
 .left {
 
+  color: blue;
   flex: 1;
   padding: 1rem;
 }
@@ -65,4 +60,8 @@ h1 {
 
   flex: 1;
   padding: 1rem;
+}
+
+.list-style {
+  list-style-type: circle;
 }

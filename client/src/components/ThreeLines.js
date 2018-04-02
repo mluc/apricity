@@ -53,7 +53,7 @@ class ThreeLines extends Component{
                         title:{
                             display:true,
                             text:this.props.displayTitle,
-                            fontSize:25
+                            fontSize:15
                         },
                         legend:{
                             display:this.props.displayLegend,
