@@ -44,37 +44,30 @@ class ListEntries extends Component {
         if(selectedValue == 'weeks6'){
 
             //6 weeks data
-            let d = new Date("11/20/2012").toLocaleDateString()
+            let d = new Date("11/20/2012")
             entries.map(item=>{
-                if(item.date >= d){
+                const itemDate = new Date(item.date)
+                if(itemDate >= d){
                     showingLabels.push(item.date)
                     showingData.push(item.systolicBP)
                 }
             })
-
-            //showingLabels = entries.map(item => item.date).filter(item=> item>=d );
-            //showingData = entries.map(item => item.systolicBPs);
         }
         else if(selectedValue == 'days6') {
             //6 days data
-            let d = new Date("12/26/2012").toLocaleDateString()
+            let d = new Date("12/26/2012")
             entries.map(item=>{
-                if(item.date >= d){
+                const itemDate = new Date(item.date)
+                if(itemDate >= d){
                     showingLabels.push(item.date)
                     showingData.push(item.systolicBP)
                 }
             })
-            //showingLabels = entries.map(item => item.date);
-            //showingData = entries.map(item => item.systolicBPs);
-
         }
         else{
 
-            entries.map(item=>{
-                showingLabels.push(item.date)
-                showingData.push(item.systolicBP)
-            })
-
+            showingLabels = entries.map(item=>item.date);
+            showingData = entries.map(item=>item.systolicBP);
         }
 
 
