@@ -1,17 +1,18 @@
-import React, {Component} from 'react'
-import {Bar, Line, Pie} from 'react-chartjs-2'
+import React, {Component} from "react";
+import {Line} from "react-chartjs-2";
 
-class ThreeLines extends Component{
+class ThreeLines extends Component {
 
 
     static defaultProps = {
-        displayTitle:true,
-        displayLegend:true,
-        legendPosition:'right'
+        displayTitle: true,
+        displayLegend: true,
+        legendPosition: 'bottom'
     }
-    render(){
 
-        return(
+    render() {
+
+        return (
             <div className="chart">
 
                 <Line
@@ -50,14 +51,14 @@ class ThreeLines extends Component{
                         ]
                     }}
                     options={{
-                        title:{
-                            display:true,
-                            text:this.props.displayTitle,
-                            fontSize:15
+                        title: {
+                            display: true,
+                            text: this.props.displayTitle,
+                            fontSize: 15
                         },
-                        legend:{
-                            display:this.props.displayLegend,
-                            position:this.props.legendPosition
+                        legend: {
+                            display: this.props.displayLegend,
+                            position: this.props.legendPosition
                         }
                     }}
                 />

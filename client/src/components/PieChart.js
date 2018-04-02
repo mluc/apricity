@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
-import {Pie} from 'react-chartjs-2'
+import React, {Component} from "react";
+import {Pie} from "react-chartjs-2";
 
-class PieChart extends Component{
-
+class PieChart extends Component {
 
     static defaultProps = {
-        displayTitle:true,
-        displayLegend:true,
-        legendPosition:'right'
+        displayTitle: true,
+        displayLegend: true,
+        legendPosition: 'bottom'
     }
-    render(){
 
-        return(
+    render() {
+
+        return (
             <div className="chart">
 
                 <Pie

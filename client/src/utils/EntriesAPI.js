@@ -11,6 +11,6 @@ const headers = {
 }
 
 export const getAll = () =>
-    fetch(`${api}/entries`, { headers })
+    fetch(`${api}/entries`, {headers})
         .then(res => res.json())
         .then(data => data.entries)

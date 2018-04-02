@@ -5,15 +5,15 @@ const fs = require('fs');
 const db = {}
 
 const defaultData = {
-    entries: [ ]
+    entries: []
 }
 
 const get = (token) => {
     let data = db[token]
     if (data == null) {
-        let text = fs.readFileSync('dataset/Blood1-addtime.csv','utf8')
+        let text = fs.readFileSync('dataset/Blood1-addtime.csv', 'utf8')
         let lines = text.split('\n');
-        for(const line of lines){
+        for (const line of lines) {
             let token = line.split(',');
             let item = {}
             item['id'] = parseInt(token[0])

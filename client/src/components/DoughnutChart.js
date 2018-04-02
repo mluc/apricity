@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
-import {Doughnut} from 'react-chartjs-2'
+import React, {Component} from "react";
+import {Doughnut} from "react-chartjs-2";
 
-class DoughnutChart extends Component{
-
+class DoughnutChart extends Component {
 
     static defaultProps = {
-        displayTitle:true,
-        displayLegend:true,
-        legendPosition:'right'
+        displayTitle: true,
+        displayLegend: true,
+        legendPosition: 'bottom'
     }
-    render(){
 
-        return(
+    render() {
+
+        return (
             <div className="chart">
 
                 <Doughnut

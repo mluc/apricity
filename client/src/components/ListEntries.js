@@ -1,54 +1,44 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
-import TwoLines from './components/TwoLines'
-import MixChart from './components/MixChart'
-import ThreeLines from './components/ThreeLines'
-import DoughnutChart from './components/DoughnutChart'
-import PieChart from './components/PieChart'
-import {RadioGroup, RadioButton} from 'react-radio-buttons';
-import math from 'mathjs'
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import MixChart from "./MixChart";
+import ThreeLines from "./ThreeLines";
+import DoughnutChart from "./DoughnutChart";
+import PieChart from "./PieChart";
+import {RadioButton, RadioGroup} from "react-radio-buttons";
+import math from "mathjs";
 
 class ListEntries extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            selectedValue: 'months6',
-            labels:[],
-            data:[]
+            selectedValue: 'months6'
         }
     }
 
     static propTypes = {
-        entries: PropTypes.array.isRequired,
-        ids: PropTypes.array.isRequired,
-        systolicBPs: PropTypes.array.isRequired,
+        entries: PropTypes.array.isRequired
     }
 
     handleSelection = (value) => {
 
         this.setState({
-            selectedValue: value,
-            labels: this.props.ids,
-            data: this.props.systolicBPs,
+            selectedValue: value
         });
 
     }
 
     render() {
         const {entries} = this.props
-        const {selectedValue, labels, data} = this.state
+        const {selectedValue} = this.state
 
-        let showingLabels=[]
-        let nonSmokerData=[]
-        let smokerData=[]
-        let overwtData0=[]
-        let overwtData1=[]
-        let overwtData2=[]
-        let allSystolicBPs=[]
+        let showingLabels = []
+        let nonSmokerData = []
+        let smokerData = []
+        let overwtData0 = []
+        let overwtData1 = []
+        let overwtData2 = []
+        let allSystolicBPs = []
 
         //6 months data
         let months6 = new Date("6/1/2012")
@@ -57,33 +47,33 @@ class ListEntries extends Component {
         //6 days data
         let days6 = new Date("12/26/2012")
 
-        entries.map(item=>{
+        entries.map(item => {
             const itemDate = new Date(item.date)
-            let date = selectedValue == 'days6'? days6 : (selectedValue == 'weeks6'? weeks6 : months6)
+            let date = selectedValue == 'days6' ? days6 : (selectedValue == 'weeks6' ? weeks6 : months6)
 
-            if(itemDate >= date){
+            if (itemDate >= date) {
                 showingLabels.push(item.date)
                 allSystolicBPs.push(item.systolicBP)
-                if(item.smoke === 0){
+                if (item.smoke === 0) {
                     nonSmokerData.push(item.systolicBP)
                     smokerData.push(null)
                 }
-                else{
+                else {
                     nonSmokerData.push(null)
                     smokerData.push(item.systolicBP)
                 }
 
-                if(item.overwt ===0){
+                if (item.overwt === 0) {
                     overwtData0.push(item.systolicBP)
                     overwtData1.push(null)
                     overwtData2.push(null)
                 }
-                else if(item.overwt ===1){
+                else if (item.overwt === 1) {
                     overwtData0.push(null)
                     overwtData1.push(item.systolicBP)
                     overwtData2.push(null)
                 }
-                else{
+                else {
                     overwtData0.push(null)
                     overwtData1.push(null)
                     overwtData2.push(item.systolicBP)
@@ -91,15 +81,15 @@ class ListEntries extends Component {
             }
         })
 
-        let overwtDataCount=[
-            overwtData0.filter(item=>item!=null).length,
-            overwtData1.filter(item=>item!=null).length,
-            overwtData2.filter(item=>item!=null).length
+        let overwtDataCount = [
+            overwtData0.filter(item => item != null).length,
+            overwtData1.filter(item => item != null).length,
+            overwtData2.filter(item => item != null).length
         ]
 
-        let smokerCount=[
-            nonSmokerData.filter(item=>item!=null).length,
-            smokerData.filter(item=>item!=null).length
+        let smokerCount = [
+            nonSmokerData.filter(item => item != null).length,
+            smokerData.filter(item => item != null).length
         ]
 
         return (
@@ -107,7 +97,7 @@ class ListEntries extends Component {
             <div className="wrapper">
                 <section>
                     <RadioGroup className="buttons" onChange={(value) => this.handleSelection(value) } horizontal>
-                        <RadioButton value="months6" checked={selectedValue=='months6'}>
+                        <RadioButton value="months6" checked={selectedValue == 'months6'}>
                             6 Months
                         </RadioButton>
                         <RadioButton value="weeks6">
@@ -121,7 +111,7 @@ class ListEntries extends Component {
                 </section>
 
                 {
-                    showingLabels.length > 0 &&(
+                    showingLabels.length > 0 && (
                         <div>
                             <section className="container">
                                 <div className="left">
@@ -141,12 +131,12 @@ class ListEntries extends Component {
                                 </div>
                                 <div className="middle">
                                     <div>
-                                        <PieChart smokerCount={smokerCount} />
+                                        <PieChart smokerCount={smokerCount}/>
                                     </div>
                                 </div>
                                 <div className="right">
                                     <div>
-                                        <DoughnutChart overwtDataCount={overwtDataCount} />
+                                        <DoughnutChart overwtDataCount={overwtDataCount}/>
                                     </div>
                                 </div>
                             </section>
@@ -155,27 +145,24 @@ class ListEntries extends Component {
                                 <div className="left-half">
                                     <div>
 
-                                        <MixChart     labels={showingLabels}
-                                                      nonSmokerData={nonSmokerData}
-                                                      smokerData={smokerData}
-                                                      datasetLabel='systolicBP for non-smokers'
-                                                      datasetLabel2='systolicBP for smokers'
-                                                      displayTitle="SystolicBP for smokers and non-smokers"
-
-                                                      legendPosition="bottom"/>
+                                        <MixChart labels={showingLabels}
+                                                  nonSmokerData={nonSmokerData}
+                                                  smokerData={smokerData}
+                                                  datasetLabel='systolicBP for non-smokers'
+                                                  datasetLabel2='systolicBP for smokers'
+                                                  displayTitle="SystolicBP for smokers and non-smokers"/>
                                     </div>
                                 </div>
                                 <div className="right-half">
                                     <div>
                                         <ThreeLines labels={showingLabels}
-                                               overwtData0={overwtData0}
-                                               overwtData1={overwtData1}
-                                               overwtData2={overwtData2}
-                                               datasetLabel0='systolicBP for normal'
-                                               datasetLabel1='systolicBP for overweight'
-                                               datasetLabel2='systolicBP for obese'
-                                               displayTitle="SystolicBP for normal, overweight, and obese"
-                                               legendPosition="bottom"/>
+                                                    overwtData0={overwtData0}
+                                                    overwtData1={overwtData1}
+                                                    overwtData2={overwtData2}
+                                                    datasetLabel0='systolicBP for normal'
+                                                    datasetLabel1='systolicBP for overweight'
+                                                    datasetLabel2='systolicBP for obese'
+                                                    displayTitle="SystolicBP for normal, overweight, and obese"/>
                                     </div>
                                 </div>
                             </section>
@@ -183,7 +170,6 @@ class ListEntries extends Component {
                         </div>
                     )
                 }
-
 
             </div>
         )
